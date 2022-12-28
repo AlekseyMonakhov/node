@@ -1,0 +1,15 @@
+<%- include('includes/head.ejs') %>
+</head>
+<body>
+<% if(users.length > 0) { %>
+    <% for (let user of users) { %>
+        <p>
+            <%= user %>
+        </p>
+    <% } %>
+    <a href="/">Back</a>
+<% } else { %>
+    <h2>No users added yet...</h2>
+    <a href="/">Back</a>
+<% } %>
+<%- include('includes/end.ejs') %>
