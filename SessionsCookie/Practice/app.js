@@ -3,11 +3,20 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const { mongoose } = require("mongoose");
+const session = require("express-session");
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
+// link qwery can be moved
+const MONGODB_URI = "mongodb+srv://nodecourse:nodecourse@cluster0.e9ihpom.mongodb.net/?retryWrites=true&w=majority";
+
 const app = express();
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'sessions'
+})
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -19,14 +28,15 @@ const authRoutes = require("./routes/auth");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-  User.findById("63c0897e1ba4a4705e9f09eb")
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => console.log(err));
-});
+app.use(
+  session({
+    secret: "my secret",
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  })
+);
+
 
 
 app.use("/admin", adminRoutes);
@@ -37,7 +47,7 @@ app.use(errorController.get404);
 mongoose.set("strictQuery", false);
 mongoose
   .connect(
-    "mongodb+srv://nodecourse:nodecourse@cluster0.e9ihpom.mongodb.net/?retryWrites=true&w=majority"
+      MONGODB_URI
   )
   .then((result) => {
     User.findOne().then((user) => {
