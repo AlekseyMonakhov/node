@@ -10,7 +10,7 @@ const authRoutes = require('./routes/auth');
 
 const app = express();
 
-const fileStorage = multer.diskStorage({
+const fileStorage = multer.diskStorFage({
   destination: (req, file, cb) => {
     cb(null, 'images');
   },
