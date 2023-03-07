@@ -1,36 +1,32 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+body {
+  margin : 0;
+  padding : 0;
 }
 
 .main {
-  display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
-  gap: 25px;
-  form {
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    flex-basis: 100%;
-    padding: 100px;
-    & :nth-child(1),
-    & :nth-child(2) {
-      width: 48%;
-      padding: 0;
-      margin: 0;
-
-    }
-    & button {
-      flex-basis: 100%;
-    }
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(0deg, rgba(93,83,255,1) 0%, rgba(124,4,123,1) 28%);
+  overflow: hidden;
+  div:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 30px;
+    background: #f4d5d5;
   }
+
 }
 
-.client {
+.container {
   display: flex;
   align-items: center;
-  flex-flow: column nowrap;
+  gap: 20px;
+  padding: 10px;
+  button {
+    flex: 1;
+  }
 }
